@@ -1,0 +1,7 @@
+Russian alphabet:
+  абвгдеёжзийклмнопрстуфхцчшщъыьэюя
+  АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+
+Letters similar in Latin and Cyrillic:
+  Cur: аАВеЕкКмМоОпрРсСуУхХ
+  Lat: aABeEkKmMoOnpPcCyYxX
