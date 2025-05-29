@@ -1,6 +1,5 @@
-SIZES=10 12 14 16 24
-FONTS=$(patsubst %, h%.pcf.gz, ${SIZES})
-BFONTS=$(patsubst %, h%_b.pcf.gz, ${SIZES})
+NAMES=h10 h12 h14 h16 h17 h24
+FONTS=$(patsubst %, %.pcf.gz, ${SIZES})
 
 CXXFLAGS=-std=gnu++11
 
