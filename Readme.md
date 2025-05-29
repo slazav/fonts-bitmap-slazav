@@ -1,5 +1,6 @@
 ## fonts-bitmap-slazav
 
+
 This is my quick project to get a nice set of unicode bitmal console fonts for my xterm.
 It's based on Efont project: http://openlab.ring.gr.jp/efont.
 All modifications are done manually with `xmbdfed` program.
@@ -17,3 +18,9 @@ Main modfications:
 
 - Add missing Tadjik letters, fix errors in 5x10 and 6x12: ғҒ ӣӢ қҚ ȳȲ ҳҲ ҷҶ
 
+#### Original font
+
+<img src="https://raw.githubusercontent.com/slazav/fonts-bitmap-slazav/master/table_orig.png">
+
+#### Modified font
+<img src="https://raw.githubusercontent.com/slazav/fonts-bitmap-slazav/master/table_v1.png">
