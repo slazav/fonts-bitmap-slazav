@@ -160,7 +160,7 @@ read_font(const std::string & fname){
 
 int
 main(){
-  std::vector<std::string> fnts = {"h10", "h12", "h14", "h16", "h17", "h24"};
+  std::vector<std::string> fnts = {"f05x10", "f06x12", "f07x14", "f08x16", "f09x17", "f12x24"};
 
   img_t img(480, 950);
   int x,y;
