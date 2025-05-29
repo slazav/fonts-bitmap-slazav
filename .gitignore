@@ -1,0 +1,4 @@
+*.gz
+*.BAK
+*.pbm
+make_table
