@@ -23,4 +23,4 @@ Main modfications:
 <img src="https://raw.githubusercontent.com/slazav/fonts-bitmap-slazav/master/table_orig.png">
 
 #### Modified font
-<img src="https://raw.githubusercontent.com/slazav/fonts-bitmap-slazav/master/table_v1.png">
+<img src="https://raw.githubusercontent.com/slazav/fonts-bitmap-slazav/master/table_v2.png">
