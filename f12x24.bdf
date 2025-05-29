@@ -1,10 +1,10 @@
 STARTFONT 2.1
-FONT -Efont-Fixed-Medium-R-Normal--24-240-75-75-C-120-ISO10646-1
+FONT -Slazav-Fixed-Medium-R-Normal--24-240-75-75-C-120-ISO10646-1
 SIZE 24 75 75
 FONTBOUNDINGBOX 12 24 0 -2
 STARTPROPERTIES 19
 COPYRIGHT "(c) Copyright 2000-2003 /efont/ The Electronic Font Open Laboratory."
-FOUNDRY "Efont"
+FOUNDRY "Slazav"
 FAMILY_NAME "Fixed"
 WEIGHT_NAME "Medium"
 SLANT "R"
