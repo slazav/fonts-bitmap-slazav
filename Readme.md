@@ -1,7 +1,7 @@
 ## fonts-bitmap-slazav
 
 
-This is my quick project to get a nice set of unicode bitmal console fonts for my xterm.
+This is my quick project to get a nice set of unicode bitmap console fonts for my xterm.
 It's based on Efont project: http://openlab.ring.gr.jp/efont.
 All modifications are done manually with `xmbdfed` program.
 
