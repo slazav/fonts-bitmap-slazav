@@ -158,6 +158,36 @@ read_font(const std::string & fname){
   return ret;
 }
 
+void print_font_stat(const font_t & fn){
+  int xmin = fn.W-1, xmax = 0;
+  int ymin = fn.H-1, ymax = 0;
+  for (const auto & f: fn){
+    int hh=f.second.size()-1;
+    int ymin1=0;
+    while (ymin1<=hh && f.second[ymin1]==0) ymin1++;
+    if (ymin>ymin1) ymin = ymin1;
+
+    int ymax1=hh;
+    while (ymax1>=0 && f.second[ymax1]==0) ymax1--;
+    if (ymax<ymax1) ymax = ymax1;
+
+    for (const auto d: f.second) {
+      int ww = sizeof(d)*8-1;
+      int xmin1 = 0;
+      while (xmin1<=ww && (((d >> xmin1) & 1)==0)) xmin1++;
+      if (xmin>xmin1) xmin = xmin1;
+
+      int xmax1 = ww;
+      while (xmax1>=0 && (((d >> xmax1) & 1)==0)) xmax1--;
+      if (xmax<xmax1) xmax = xmax1;
+    }
+
+  }
+  std::cerr << "H: " << fn.W << " x " << fn.H << "\n";
+  std::cerr << "x: " << xmin << " .. " << xmax << "\n";
+  std::cerr << "y: " << ymin << " .. " << ymax << "\n";
+}
+
 int
 main(){
   std::vector<std::string> fnts = {"f05x10", "f06x12", "f07x14", "f08x16", "f09x17", "f12x24"};
@@ -184,6 +214,9 @@ main(){
     y+=2;
     img.write(fn, x,y, fname + ":\n");
     img.write(fn, x,y, test1);
+
+    std::cerr << ">>> " << fname << "\n";
+    print_font_stat(fn);
   }
 
   img.save_pbm("out.pbm");
