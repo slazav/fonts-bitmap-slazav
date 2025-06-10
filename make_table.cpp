@@ -128,12 +128,11 @@ read_font(const std::string & fname){
       continue;
     }
     if (w == "STARTCHAR" && ch==-1){
+      continue;
+    }
+    if (w == "ENCODING" && ch==-1){
       ss >> w;
-      if (w.find("U+") == 0)
-        ch = str_to_int(w.substr(2), true);
-      else if (w.find("char") == 0)
-        ch = str_to_int(w.substr(4), false);
-      else throw std::logic_error("unknown char number: " + w);
+      ch = str_to_int(w, false);
       ret[ch] = {};
       continue;
     }
