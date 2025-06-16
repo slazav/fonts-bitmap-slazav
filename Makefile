@@ -1,7 +1,7 @@
-NAMES=f05x10 f06x12 f07x14 f08x16 f09x17 f12x24
+NAMES=f05x10 f06x12 f07x14 f08x16 f09x17 f11x23 f12x24
 FONTS=$(patsubst %, %.pcf.gz, ${NAMES})
 
-CXXFLAGS=-std=gnu++11
+CXXFLAGS=-std=gnu++11 -g
 
 all: ${FONTS} ${BFONTS} make_table
 
