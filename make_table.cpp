@@ -44,13 +44,12 @@ struct img_t{
     data.get()[b] = v? old|(1<<o) : old&~(1<<o);
   }
 
-  void
-  write(const font_t & fn, int & x, int & y, const std::string & str, bool vert = false){
-    int x0(x), y0(x);
 
+  void
+  write(const font_t & fn, int & x, int & y, const std::u32string & str, bool vert = false){
     int wd = 8*((fn.W+7)/8);
-    std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
-    for (const auto c: cv.from_bytes(str)){
+    int x0(x), y0(x);
+    for (const auto c: str){
 
       if (c == 10){ // newline
         if (vert){y=y0; x+=fn.H;}
@@ -79,6 +78,13 @@ struct img_t{
       if (vert) y+=fn.W;
       else x+=fn.W;
     }
+  }
+
+  void
+  write(const font_t & fn, int & x, int & y, const std::string & str, bool vert = false){
+    std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
+    auto s = cv.from_bytes(str);
+    write(fn, x, y, s, vert);
   }
 
   void
@@ -189,23 +195,28 @@ void print_font_stat(const font_t & fn){
 
 int
 main(){
-  std::vector<std::string> fnts = {"f05x10", "f06x12", "f07x14", "f08x16", "f09x17", "f12x24"};
+  std::vector<std::string> fnts = {"f05x10", "f06x12", "f07x14", "f08x16", "f09x17", "f11x23"};
 
-  img_t img(480, 950);
-  int x,y;
+  /***************************/
+  // make test text
 
-  std::string test1=
-    "RU: абвгдеёжзийклмнопрстуфхцчшщъыьэюя\n"
-    "    a    e   u k m onpc y x          \n"
+  auto test1=
+    "ru: абвгдеёжзийклмнопрстуфхцчшщъыьэюя\n"
     "    АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ\n"
-    "    A B  E  3  K MHO0PC Y X          \n"
-    "EN: abcdefghijklmnopqrstuvwxyz\n"
+    "en: abcdefghijklmnopqrstuvwxyz\n"
     "    ABCDEFGHIJKLMNOPQRSTUVWXYZ\n"
-    "TJ: ҒғӢӣҚқӮӯҲҳҶҷ  FI: äöæåø ÄÖÆÅØ\n"
+    "lat-cyr: aа eе uи kк mм oо nп pр cс yу xх\n"
+    "         AА BВ EЕ 3З KК MМ HН O0О PР CС YУ XХ\n"
+    "tj: ҒғӢӣҚқӮӯҲҳҶҷ mn: ӨөҮү fi: äöæåø ÄÖÆÅØ\n"
     "!@#$%^&*()_+[]{}`\'\"\\|/<>?,.0123456789\n"
+    U"\x2554\x2566\x2550\x2557 \x2552\x2564\x2550\x2555 \x2553\x2565\x2500\x2556 \x250C\x252C\x2500\x2510 \x250F\x2533\x2501\x2513\n"
+    U"\x2551\x2551 "   "\x2551 \x2502\x2502 "   "\x2502 \x2551\x2551 "   "\x2551 \x2502\x2502 "   "\x2502 \x2503\x2503 "   "\x2503\n"
+    U"\x2560\x256C\x2550\x2563 \x255E\x256A\x2550\x2561 \x255F\x256B\x2500\x2562 \x251C\x253C\x2500\x2524 \x2523\x254B\x2501\x252B\n"
+    U"\x255A\x2569\x2550\x255D \x2558\x2567\x2550\x255B \x2559\x2568\x2500\x255C \x2514\x2534\x2500\x2518 \x2517\x253B\x2501\x251B\n"
   ;
 
-  x=10, y=10;
+  img_t img(520, 1280);
+  int x=10, y=10;
   for (const auto fname: fnts){
     auto fn = read_font(fname + ".bdf");
     y+=10;
@@ -219,6 +230,25 @@ main(){
   }
 
   img.save_pbm("out.pbm");
+
+  /***************************/
+  // make tables
+
+  for (const auto fname: fnts){
+    auto fn = read_font(fname + ".bdf");
+    img_t img(fn.W*16, fn.H*16);
+    for (size_t y = 0; y<16; ++y){
+      for (size_t x = 0; x<16; ++x){
+        if (x==0 && y==0) continue;
+        if (x==16 && y==16) continue;
+        int x0 = x*fn.W, y0=y*fn.H;
+        int tab = 4;
+        std::u32string s(1, x + 16*y + 256*tab);
+        img.write(fn, x0, y0, s);
+      }
+    }
+    img.save_pbm("tab0.pbm");
+  }
 
   return 0;
 }
